@@ -4,6 +4,7 @@ import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import { connectDB } from "./config/db.js";
 
+
 const app = express();
 
 // Middleware
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended:true }))
 
 // API routes
 app.use("/api/auth", authRoutes);
+app.use("/api/books", bookRoutes)
 
 const PORT = process.env.PORT || 3000;
 

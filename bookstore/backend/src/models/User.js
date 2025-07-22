@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     }
-  }
+  }, {timestamps: true}
 );
 
 // hash password before saving to db
@@ -33,8 +33,12 @@ userSchema.pre("save", async function (next) {
   next()
 })
 
-userSchema.methods.comparePassword = function(candidatePassword) {
-  return bcrypt.compare(candidatePassword, this.password)
+// userSchema.methods.comparePassword = function(candidatePassword) {
+//   return bcrypt.compare(candidatePassword, this.password)
+// }
+
+userSchema.methods.comparePassword = async function(userPassword) {
+  return await bcrypt.comparePassword(userPassword, this.password);
 }
 
 // userSchema.methods.generateTokens = function() {accessToken refreshToken} {
